@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarprincipal"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:background="@android:color/background_light"
+            app:popupTheme="@style/AppTheme" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        mapbox:mapbox_cameraZoom="15"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="122dp">
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/MenuP"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="71dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:menu_fab_label="Menú">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/Infraccion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher_in"
+                app:fab_label="Infracciones" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/Accidente"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher_acc"
+                app:fab_label="Accidentes" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/Consulta"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher_bu"
+                app:fab_label="Consulta" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+        <include
+            layout="@layout/activity_direccion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.mapbox.mapboxsdk.maps.MapView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

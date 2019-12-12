@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/Apellido"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="177dp"
+            android:layout_marginTop="190dp"
+            android:layout_marginBottom="288dp"
+            android:ems="10"
+            android:hint="Apellidos"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/Nombre"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="190dp"
+            android:layout_marginBottom="288dp"
+            android:ems="10"
+            android:hint="Nombres"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/CategoriaLicencia"
+            android:layout_width="195dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="158dp"
+            android:layout_marginTop="328dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="144dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/FechaCaducidadLicencia"
+            android:layout_width="114dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="220dp"
+            android:layout_marginTop="468dp"
+            android:layout_marginEnd="26dp"
+            android:ems="10"
+            android:hint="Día/Mes/Año"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/FechaEmisionLicencia"
+            android:layout_width="114dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="468dp"
+            android:layout_marginEnd="202dp"
+            android:ems="10"
+            android:hint="Día/Mes/Año"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/Identificacion"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="85dp"
+            android:layout_marginEnd="81dp"
+            android:layout_marginBottom="387dp"
+            android:ems="10"
+            android:hint="Cédula"
+            android:inputType="number"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/emisioni"
+            android:layout_width="30dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="472dp"
+            android:layout_marginEnd="318dp"
+            android:layout_marginBottom="9dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+        <ImageButton
+            android:id="@+id/caducidadi"
+            android:layout_width="30dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="190dp"
+            android:layout_marginTop="472dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginBottom="9dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="411dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="244dp"
+            android:layout_marginBottom="266dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:color/holo_red_dark" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="411dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="393dp"
+            android:layout_marginBottom="117dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:color/holo_red_dark" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="411dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="148dp"
+            android:layout_marginBottom="362dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:color/holo_red_dark" />
+
+        <Spinner
+            android:id="@+id/TipoLicencia"
+            android:layout_width="108dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="328dp"
+            android:background="@color/mapbox_plugins_material_grey_200"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="67dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="160dp"
+            android:text="Nombres:"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="264dp"
+            android:text="Licencia de conducir:"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="157dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="159dp"
+            android:layout_marginTop="291dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginBottom="200dp"
+            android:text="Categoría de Licencia:"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="122dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="292dp"
+            android:text="Tipo de Licencia:"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cedulainf"
+            android:layout_width="249dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="412dp"
+            android:text="Fecha de Licencia de conducir:"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="64dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="445dp"
+            android:layout_marginEnd="252dp"
+            android:layout_marginBottom="49dp"
+            android:text="Emisión:"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="108dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="220dp"
+            android:layout_marginTop="444dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="49dp"
+            android:text="Caducidad:"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="59dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="297dp"
+            android:layout_marginBottom="450dp"
+            android:text="Cédula:"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/Conductor"
+            android:layout_width="158dp"
+            android:layout_height="152dp"
+            android:layout_marginStart="287dp"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="374dp"
+            android:clickable="true"
+            android:src="@mipmap/ic_launcher_buscar"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_save" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme"
+            tools:ignore="MissingConstraints">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarconductor"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:background="@android:color/background_light"
+                app:popupTheme="@style/AppTheme" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

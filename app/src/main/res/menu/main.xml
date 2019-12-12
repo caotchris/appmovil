@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/offline"
+        android:icon="@drawable/mapbox_ic_offline"
+        android:title="Mapas Offline"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/PefilUsuario"
+        android:orderInCategory="100"
+        android:title="@string/perfil"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/RegistroIncidencias"
+        android:orderInCategory="101"
+        android:title="@string/registro" />
+    <item
+        android:id="@+id/Sincronizacion"
+        android:orderInCategory="102"
+        android:title="@string/sincronizar" />
+    <item
+        android:id="@+id/Salir"
+        android:orderInCategory="103"
+        android:title="@string/salir" />
+
+</menu>
