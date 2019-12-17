@@ -6,6 +6,7 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Audio extends AppCompatActivity {
+public class Audio extends AppCompatActivity implements View.OnClickListener{
 
     private Button startbtn, stopbtn, playbtn, stopplay;
     private MediaRecorder mRecorder;
@@ -42,36 +43,59 @@ public class Audio extends AppCompatActivity {
         stopplay.setEnabled(false);
         mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         mFileName += "/AudioRecording"+timeStamp+".mp3";
+        startbtn.setOnClickListener(this);
+        stopbtn.setOnClickListener(this);
+        playbtn.setOnClickListener(this);
+        stopplay.setOnClickListener(this);
+    }
 
-        startbtn.setOnClickListener(v -> {
-                stopbtn.setEnabled(true);
-                startbtn.setEnabled(false);
-                playbtn.setEnabled(false);
-                stopplay.setEnabled(false);
-                mRecorder = new MediaRecorder();
-                mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                mRecorder.setOutputFile(mFileName);
-                try {
-                    mRecorder.prepare();
-                } catch (IOException e) {
-                    Log.e(LOG_TAG, "prepare() failed");
-                }
+    @Override
+    public void onClick(View v) {
+        if (v == startbtn){
+            stopbtn.setEnabled(true);
+            startbtn.setEnabled(false);
+            playbtn.setEnabled(false);
+            stopplay.setEnabled(false);
+            mRecorder = new MediaRecorder();
+            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mRecorder.setOutputFile(mFileName);
+            try {
+                mRecorder.prepare();
                 mRecorder.start();
-                Toast.makeText(getApplicationContext(), "Grabación iniciada", Toast.LENGTH_LONG).show();
-            });
-        stopbtn.setOnClickListener(v -> {
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "prepare() failed");
+            }
+
+            Toast.makeText(getApplicationContext(), "Grabación iniciada", Toast.LENGTH_LONG).show();
+        }
+        if (v == stopbtn){
             stopbtn.setEnabled(false);
             startbtn.setEnabled(true);
             playbtn.setEnabled(true);
             stopplay.setEnabled(true);
-            mRecorder.stop();
-            mRecorder.release();
+            try {
+                mRecorder.prepare();
+                mRecorder.stop();
+                mRecorder.release();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             mRecorder = null;
             Toast.makeText(getApplicationContext(), "Grabación detenida", Toast.LENGTH_LONG).show();
-        });
-        playbtn.setOnClickListener(v -> {
+        }
+        if (v == stopplay){
+            mPlayer.release();
+            mPlayer = null;
+            stopbtn.setEnabled(false);
+            startbtn.setEnabled(true);
+            playbtn.setEnabled(true);
+            stopplay.setEnabled(false);
+            Toast.makeText(getApplicationContext(),"Reproducción de audio detenido\n", Toast.LENGTH_SHORT).show();
+        }
+        if (v == playbtn){
             stopbtn.setEnabled(false);
             startbtn.setEnabled(true);
             playbtn.setEnabled(false);
@@ -85,16 +109,7 @@ public class Audio extends AppCompatActivity {
             } catch (IOException e) {
                 Log.e(LOG_TAG, "prepare() failed");
             }
-        });
-        stopplay.setOnClickListener(v -> {
-            mPlayer.release();
-            mPlayer = null;
-            stopbtn.setEnabled(false);
-            startbtn.setEnabled(true);
-            playbtn.setEnabled(true);
-            stopplay.setEnabled(false);
-            Toast.makeText(getApplicationContext(),"Reproducción de audio detenido\n", Toast.LENGTH_SHORT).show();
-        });
-    }
+        }
 
+    }
 }
