@@ -21,7 +21,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.ucot.R;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Formatter;
 
 import Modelos.Accidente_Transito;
@@ -40,12 +39,12 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
     com.google.android.material.floatingactionbutton.FloatingActionButton guardar;
 
     private final String PREF_NAME = "datos";
-    EditText descripcion, horaacc;
+    EditText descripcion, horaacc, horaat;
     ImageButton audio, video, foto;
     Spinner tipoaccidente;
     String opcionesTipoAccidente [] =new String[0];
     Intent intent;
-    ImageView hora;
+    ImageView horaacidente, horaatencion;
     int horas, minutos, infraccion;
 
     @Override
@@ -61,6 +60,7 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
         //Edittext
         descripcion = (EditText) findViewById(R.id.DescripcionAccidente);
         horaacc = (EditText) findViewById(R.id.HoraAccidente);
+        horaat = (EditText) findViewById(R.id.HoraAtencion);
         horaacc.setEnabled(false);
         // Spinner
         tipoaccidente = (Spinner) findViewById(R.id.TipoAccidente);
@@ -68,15 +68,18 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
         audio = findViewById(R.id.AudioA);
         foto = findViewById(R.id.FotoA);
         video = findViewById(R.id.VideoA);
-        hora = findViewById(R.id.EstablecerHoraAccidente);
+        horaacidente = (ImageView) findViewById(R.id.EstablecerHoraAccidente);
+        horaatencion = (ImageView) findViewById(R.id.EstablecerHoraAccidenteAtencion);
         audio.setOnClickListener(this);
         foto.setOnClickListener(this);
         video.setOnClickListener(this);
-        hora.setOnClickListener(this);
+        horaacidente.setOnClickListener(this);
+        horaatencion.setOnClickListener(this);
         //Boton para guardar
         guardar = findViewById(R.id.GuardarAccidente);
         guardar.setOnClickListener(this);
         spiner();
+        horaactual1();
     }
 
     //Spinner
@@ -119,8 +122,8 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
         startActivity(intent);
     }
 
-    //llamar a audio
-    public void MetodoHora(){
+    //Establce Hora
+    public void MetodoHoraAc(){
         final Calendar c = Calendar.getInstance();
         horas = c.get(Calendar.HOUR_OF_DAY);
         minutos = c.get(Calendar.MINUTE);
@@ -134,6 +137,29 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
             }
         },horas, minutos, false);
         timePickerDialog.show();
+    }
+
+    //Establce Hora
+    public void MetodoHoraAt(){
+        final Calendar c = Calendar.getInstance();
+        horas = c.get(Calendar.HOUR_OF_DAY);
+        minutos = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                // i = hora, i1 = minutos
+                Formatter obj = new Formatter();
+                String ceros = String.valueOf(obj.format("%02d", i1));
+                horaacc.setText(i+":"+ceros);
+            }
+        },horas, minutos, false);
+        timePickerDialog.show();
+    }
+
+    public void horaactual1(){
+        String mydate = java.text.DateFormat.getTimeInstance().format(Calendar.getInstance().getTime());
+        horaacc.setText(mydate);
+        horaat.setText(mydate);
     }
 
     private void guardarNumAccidente() {
@@ -159,7 +185,6 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         if (view == guardar){
             guardarAccidenteDB();
-            Toast.makeText(this, "Guardado con éxito", Toast.LENGTH_LONG).show();
             guardarNumAccidente ();
         }
         if (view == audio){
@@ -171,8 +196,11 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
         if (view == video){
             MetodoGrabarVideo();
         }
-        if (view == hora){
-            MetodoHora();
+        if (view == horaacidente){
+            MetodoHoraAc();
+        }
+        if (view == horaatencion){
+            MetodoHoraAt();
         }
     }
 
@@ -184,7 +212,7 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
         int intento = Constantes.intento;
         double latitud = Constantes.lat;
         double longitud = Constantes.lng;
-        String estado = "En resolucion";
+        String estado = "Reportado";
         String fecha_accidente = Utilidades.obtenerFechaActual ();
         String fecha_registro = Utilidades.obtenerFechaActual ();
         String hora_accident = this.horaacc.getText ().toString ();
@@ -203,13 +231,7 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
         Constantes.accidente = accidente;
         AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
         helper.crearAccidenteTransito(accidente);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed ();
-        Constantes.intento += 1;
-        guardarAccidenteDB ();
-        guardarNumAccidente ();
+        Toast.makeText(this, "Guardado con éxito", Toast.LENGTH_LONG).show();
+        onBackPressed();
     }
 }

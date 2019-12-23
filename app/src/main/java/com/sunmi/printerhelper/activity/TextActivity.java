@@ -239,20 +239,21 @@ public class TextActivity extends BaseActivity {
                 "_______________________________"+"\n"+
                 "Número de citación: \n"+prefe.getString("infraccion", "")+"\n"+
                 "Fecha: " + Utilidades.obtenerFechaActual() +"\n"+
-                "Hora de detención: \n"+ prefe.getString("hora", "") +"\n"+
+                "Hora de detención: \n"+ prefe.getString("horainfraccion", "") +"\n"+
+                "Hora de detención: \n"+ prefe.getString("horadetencion", "") +"\n"+
                 "_______________________________"+"\n"+
                 "DATOS DEL CONDUCTOR"+"\n"+
-                "Identificación: "+Constantes.conductor.getCedula ()+"\n"+
-                "Nombres: "+Constantes.conductor.getNombres ()+"\n"+
-                "Apellidos: "+ Constantes.conductor.getApellidos ()+"\n"+
-                "Tipo de Licencia: "+Constantes.conductor.getTipo_licencia ()+"\n"+
-                "Categoría: "+Constantes.conductor.getCategoria_licencia ()+"\n"+
+                "Identificación: "+prefe.getString("identificacion", "")+"\n"+
+                "Nombres: "+prefe.getString("nombre", "")+"\n"+
+                "Apellidos: "+ prefe.getString("apellido", "")+"\n"+
+                "Tipo de Licencia: "+ prefe.getString("TLicencia", "") +"\n"+
+                "Categoría: "+ prefe.getString("lcategoria", "") +"\n"+
                 "_______________________________"+"\n"+
                 "CARACTERÍSTICAS DEL VEHÍCULO"+"\n"+
-                "Placa: "+Constantes.vehiculo.getPlaca ()+"\n"+
-                "Marca: "+Constantes.vehiculo.getMarca ()+"\n"+
-                "Tipo: "+Constantes.vehiculo.getTipo ()+"\n"+
-                "Color: "+Constantes.vehiculo.getColor ()+"\n"+
+                "Placa: "+prefe.getString("placa", "")+"\n"+
+                "Marca: "+prefe.getString("marca", "")+"\n"+
+                "Tipo: "+prefe.getString("tipo", "")+"\n"+
+                "Color: "+prefe.getString("color", "")+"\n"+
                 "_______________________________"+"\n"+
                 "CÓDIGO ORGÁNICO INTEGRAL PENAL"+"\n"+
                 "Artículo: "+prefe.getString("articulo", "")+"\n"+
@@ -263,6 +264,8 @@ public class TextActivity extends BaseActivity {
                 "Provincia: Loja"+"\n"+
                 "Cantón: Loja"+"\n"+
                 "Ubicación: "+ Constantes.ubicacion +"\n"+
+                "Latitud: "+ Constantes.lat +"\n"+
+                "Longitud: "+ Constantes.lng +"\n"+
                 "_______________________________"+"\n"+
                 "DESCRIPCIÓN/OBSERVACIÓN"+"\n"+
                 "_______________________________"+"\n"+

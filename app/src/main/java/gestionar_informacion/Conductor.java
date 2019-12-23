@@ -16,40 +16,40 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ucot.R;
 import com.github.clans.fab.FloatingActionButton;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Calendar;
 
 import Utilidades.Constantes;
 import Utilidades.Utilidades;
 import gestionar_almacenamiento.AdminSQLiteOpenHelper;
-import gestionar_sincronizacion.Obtener_Info;
 
 public class Conductor extends AppCompatActivity implements View.OnClickListener {
 
     public static ImageButton emisionlicencia, caducidadlicencia;
     public static EditText licenciaemision, licenciacaducidad, licenciacategoria, nombres, apellidos, identificacion;
+    public static TextView punto;
     private static int ano, mes, dia;
     private static Spinner spinnerc;
     private String opcionesTipo [] =new String[0];
     String selectedString;
     private static final String PREF_NAME = "datos";
     private FloatingActionButton conductor;
+    //variables para controlar spinner
+    private int contador;
+    private String control;
 
     private RequestQueue request;
     private ProgressDialog dialog;
@@ -76,6 +76,7 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
         licenciaemision = (EditText) findViewById(R.id.FechaEmisionLicencia);
         licenciacaducidad = (EditText) findViewById(R.id.FechaCaducidadLicencia);
         licenciacategoria = (EditText) findViewById(R.id.CategoriaLicencia);
+        punto = (TextView) findViewById(R.id.Puntos);
         licenciacategoria.setEnabled(false);
         licenciaemision.setEnabled(false);
         licenciacaducidad.setEnabled(false);
@@ -100,10 +101,32 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
         nombres.setText(prefe.getString("nombre", ""));
         apellidos.setText(prefe.getString("apellido", ""));
         identificacion.setText(prefe.getString("identificacion", ""));
+        punto.setText(prefe.getString("puntos", ""));
         licenciacategoria.setText(prefe.getString("lcategoria", ""));
         spinnerc.setSelection(prefe.getInt("spinner", spinnerc.getSelectedItemPosition()));
         licenciaemision.setText(prefe.getString("lemision", ""));
         licenciacaducidad.setText(prefe.getString("lcaducidad", ""));
+    }
+
+    //guarda estado activity
+    public void guardaestado() {
+        SharedPreferences preferencias=getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferencias.edit();
+        editor.putString("nombre", nombres.getText().toString());
+        editor.putString("apellido", apellidos.getText().toString());
+        editor.putString("identificacion", identificacion.getText().toString());
+        editor.putString("puntos", punto.getText().toString());
+        editor.putString("lcategoria", licenciacategoria.getText().toString());
+        editor.putInt("spinner", spinnerc.getSelectedItemPosition());
+        editor.putString("TLicencia", spinnerc.getSelectedItem().toString());
+        //spinner texto
+        selectedString = opcionesTipo[spinnerc.getSelectedItemPosition()];  //Guarda texto del spinner
+        editor.putString("textospinner", selectedString);                  //Guarda texto del spinner
+        editor.putString("lemision", licenciaemision.getText().toString());
+        editor.putString("lcaducidad", licenciacaducidad.getText().toString());
+        editor.apply();
+        guardaDB ();
+        finish();
     }
 
     private boolean  validar() {
@@ -133,25 +156,6 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
         return band;
     }
 
-    //guarda estado activity
-    public void guardaestado() {
-        SharedPreferences preferencias=getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString("nombre", nombres.getText().toString());
-        editor.putString("apellido", apellidos.getText().toString());
-        editor.putString("identificacion", identificacion.getText().toString());
-        editor.putString("lcategoria", licenciacategoria.getText().toString());
-        editor.putInt("spinner", spinnerc.getSelectedItemPosition());
-        //spinner texto
-        selectedString = opcionesTipo[spinnerc.getSelectedItemPosition()];  //Guarda texto del spinner
-        editor.putString("textospinner", selectedString);                  //Guarda texto del spinner
-        editor.putString("lemision", licenciaemision.getText().toString());
-        editor.putString("lcaducidad", licenciacaducidad.getText().toString());
-        editor.apply();
-        guardaDB ();
-        finish();
-    }
-
     public void guardaDB() {
         String nombre = nombres.getText().toString();
         String apellido = apellidos.getText().toString();
@@ -160,8 +164,9 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
         String tipol  = opcionesTipo[spinnerc.getSelectedItemPosition()];  //Guarda texto del spinner
         String lemision = licenciaemision.getText().toString();
         String lcaducidad = licenciacaducidad.getText().toString();
+        String lpuntos = licenciacaducidad.getText().toString();
 
-        Modelos.Conductor conductor = new Modelos.Conductor (id, nombre, apellido, tipol, lcategoria, lemision, lcaducidad);
+        Modelos.Conductor conductor = new Modelos.Conductor (id, nombre, apellido, tipol, lcategoria, lemision, lcaducidad, lpuntos);
         Constantes.conductor = conductor;
         AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
         helper.crearConductor (conductor);
@@ -283,10 +288,13 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
                         if (conductor != null) {
                             nombres.setText (conductor.getNombres());
                             apellidos.setText (conductor.getApellidos());
+                            control = conductor.getTipo_licencia();
+                            controlspinner();
                             identificacion.setText (conductor.getCedula ());
                             licenciaemision.setText (conductor.getFecha_emision_licencia ());
                             licenciacaducidad.setText (conductor.getFecha_caducidad_licencia ());
                             licenciacategoria.setText (conductor.getCategoria_licencia ());
+                            punto.setText(conductor.getPuntos());
                             guardaDB ();
                             guardaestado ();
                             msg[0] = "Conductor encontrado";
@@ -305,6 +313,60 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
                 dialog.dismiss ();
             });
         }).start ();
+    }
+
+    public int controlspinner (){
+        switch(control)
+        {
+            case "A" :
+                contador=0;
+                break;
+
+            case "B" :
+                contador=1;
+                break;
+
+            case "F" :
+                contador=2;
+                break;
+
+            case "A1" :
+                contador=3;
+                break;
+
+            case "C" :
+                contador=4;
+                break;
+
+            case "C1" :
+                contador=5;
+                break;
+
+            case "D" :
+                contador=6;
+                break;
+
+            case "D1" :
+                contador=7;
+                break;
+
+            case "E" :
+                contador=8;
+                break;
+
+            case "E1" :
+                contador=9;
+                break;
+
+            case "G" :
+                contador=10;
+                break;
+
+
+            default :
+                // Declaraciones
+        }
+        return contador;
     }
 
 }

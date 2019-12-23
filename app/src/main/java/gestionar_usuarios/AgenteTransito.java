@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.example.ucot.R;
 
 import Utilidades.Constantes;
@@ -34,7 +33,7 @@ public class AgenteTransito extends AppCompatActivity {
         apellido = (TextView) findViewById(R.id.ApellidosP);
         identificacion = (TextView) findViewById(R.id.IdentificacionP);
         codigo = (TextView) findViewById(R.id.CodigoP);
-        Consultar();
+//        Consultar();
     }
 
     //boton atras en actionbar
@@ -44,25 +43,25 @@ public class AgenteTransito extends AppCompatActivity {
         return true;
     }
 
-    //Metodo consultas
-    public void Consultar(){
-
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, Constantes.DB, null, 1);
-        SQLiteDatabase BaseDeDataBase = admin.getWritableDatabase();
-        Cursor fila = BaseDeDataBase.rawQuery
-                ("select Codigo, Cedula, Nombres, Apellidos from Agente_Transito where Codigo="+ 001, null);
-        if (fila.moveToFirst()){
-
-            codigo.setText(fila.getString(0));
-            identificacion.setText(fila.getString(1));
-            nombre.setText(fila.getString(2));
-            apellido.setText(fila.getString(3));
-
-            BaseDeDataBase.close();
-        }else{
-            Toast.makeText(this, "No hay información", Toast.LENGTH_SHORT).show();
-            BaseDeDataBase.close();
-        }
-    }
+//    //Metodo consultas
+//    public void Consultar(){
+//
+//        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, Constantes.DB, null, 1);
+//        SQLiteDatabase BaseDeDataBase = admin.getWritableDatabase();
+//        Cursor fila = BaseDeDataBase.rawQuery
+//                ("select Codigo, Cedula, Nombres, Apellidos from Agente_Transito where Codigo="+ 001, null);
+//        if (fila.moveToFirst()){
+//
+//            codigo.setText(fila.getString(0));
+//            identificacion.setText(fila.getString(1));
+//            nombre.setText(fila.getString(2));
+//            apellido.setText(fila.getString(3));
+//
+//            BaseDeDataBase.close();
+//        }else{
+//            Toast.makeText(this, "No hay información", Toast.LENGTH_SHORT).show();
+//            BaseDeDataBase.close();
+//        }
+//    }
 
 }

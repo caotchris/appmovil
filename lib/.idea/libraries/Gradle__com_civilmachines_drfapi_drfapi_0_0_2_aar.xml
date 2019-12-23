@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.civilmachines.drfapi:drfapi:0.0.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fdbb68e0133440dfe61cefe55fe272f1/jetified-drfapi-0.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fdbb68e0133440dfe61cefe55fe272f1/jetified-drfapi-0.0.2/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.civilmachines.drfapi/drfapi/0.0.2/14d3720d4a663fa91ea3cfd1f2188dde2ebb42df/drfapi-0.0.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.civilmachines.drfapi/drfapi/0.0.2/c4346164bd5e22b0288bce58a1d4b50b2a0f5126/drfapi-0.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

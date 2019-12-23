@@ -164,7 +164,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.CAMERA)) {
 
-                // Acá continuamos el procesos deseado a hacer
+                // Aca continuamos el procesos deseado a hacer
 
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO, WRITE_EXTERNAL_STORAGE,
@@ -188,55 +188,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    //Metodo consultas BD
-//    public void Consultar() {
-//        //Usuario y contrasena ingresados
-//        usuario1 = usuario.getText().toString();
-//        contrasena1 = contrasena.getText().toString();
-//        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, Constantes.DB, null, 1);
-//        SQLiteDatabase BaseDeDataBase = admin.getWritableDatabase();
-//
-//        if (!usuario1.isEmpty() && !contrasena1.isEmpty()) {
-//            Cursor fila = BaseDeDataBase.rawQuery
-//                    ("select Cedula, Clave from agenteTransito where Cedula = ? AND Clave = ?",new String[] {usuario1, contrasena1}, null);
-//            if (fila.moveToFirst()) {
-//                BaseDeDataBase.close();
-//                usuario.setText("");
-//                contrasena.setText("");
-//                Ingreso();
-//            } else {
-//                Toast.makeText(this, "No hay información", Toast.LENGTH_SHORT).show();
-//                BaseDeDataBase.close();
-//            }
-//        }else{
-//            usuario.setError (Constantes.MSG_ERROR);
-//            contrasena.setError (Constantes.MSG_ERROR);
-//            Toast.makeText(this, "Ingrese usuario y contraseña", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-
-    // metodo para registrar infracciones de tránsito
-//    public void Registrar(){
-//
-//        String cedula = "1105029019";
-//        int codigo = 001;
-//        String nombres = "Christian Alfonso";
-//        String apellidos = "Ortiz Torres";
-//        String clave = "caot001";
-//
-//        Constantes.agente = new Agente_Transito (codigo, cedula, clave, nombres, apellidos);
-//
-//        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-//        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
-//            ContentValues registrov = new ContentValues();
-//            registrov.put("Codigo", codigo);
-//            registrov.put("Cedula", cedula);
-//            registrov.put("Nombres", nombres);
-//            registrov.put("Apellidos", apellidos);
-//            registrov.put("Clave", clave);
-//            BaseDeDatos.insert("agenteTransito", null, registrov);
-//        BaseDeDatos.close();
-//    }
 
 }

@@ -1,5 +1,9 @@
 package Utilidades;
 
+import android.app.TimePickerDialog;
+import android.widget.EditText;
+import android.widget.TimePicker;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Formatter;
 
 import Modelos.Agente_Transito;
 import Modelos.Conductor;
@@ -61,7 +66,7 @@ public class Utilidades {
     /**
      * Permite convertir un String en fecha (Date).
      * @param fecha Cadena de fecha dd/MM/yyyy
-     * @return Objeto Date
+     * @return Objeto Date111111111111111111
      */
     public static Date convertirHora(String fecha) {
         SimpleDateFormat formato = new SimpleDateFormat("hh:mm:ss");
@@ -91,8 +96,9 @@ public class Utilidades {
         String categoriaLicencia = obj.getString ("CategoriaLicencia");
         String fechaEmisionLicencia = obj.getString ("FechaEmisionLicencia");
         String fechaCaducidadLicencia = obj.getString ("FechaCaducidadLicencia");
+        String puntos = obj.getString ("Puntos");
         return new Conductor (cedula, nombres, apellidos, categoriaLicencia,
-                categoriaLicencia, fechaEmisionLicencia, fechaCaducidadLicencia);
+                categoriaLicencia, fechaEmisionLicencia, fechaCaducidadLicencia, puntos);
     }
 
 }

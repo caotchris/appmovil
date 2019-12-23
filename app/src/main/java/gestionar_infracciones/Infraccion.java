@@ -19,9 +19,11 @@ import com.example.ucot.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.sunmi.printerhelper.activity.FunctionActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.Locale;
 
 import Modelos.Agente_Transito;
 import Modelos.Articulos_Coip;
@@ -43,8 +45,8 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
 
     private static final String PREF_NAME = "datos";
     String nombecompleto;
-    ImageView audio, foto, video, horainf;
-    EditText hora;
+    ImageView audio, foto, video, horainf, horadet;
+    EditText infhora, dethora;
     int horas, minutos,infraccion;
 
 
@@ -65,8 +67,10 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
         articulo = (TextView) findViewById(R.id.articuloinf);
         inciso = (TextView) findViewById(R.id.incisoinf);
         numeral = (TextView) findViewById(R.id.numeralinf);
-        hora = (EditText) findViewById(R.id.HoraInfraccion);
-        hora.setEnabled(false);
+        infhora = (EditText) findViewById(R.id.HoraInfraccion);
+        dethora = (EditText) findViewById(R.id.Horadetencion);
+        infhora.setEnabled(false);
+        dethora.setEnabled(false);
         //Botones flotantes
         guardar = (com.google.android.material.floatingactionbutton.FloatingActionButton) findViewById(R.id.GuardarInfraccion);
         conductores = (FloatingActionButton) findViewById(R.id.Conductor);
@@ -76,6 +80,7 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
         foto = (ImageView) findViewById(R.id.FotoI);
         video = (ImageView) findViewById(R.id.VideoI);
         horainf = (ImageView) findViewById(R.id.EstablecerHoraInfraccion);
+        horadet = (ImageView) findViewById(R.id.EstablecerHoraDetencion);
         conductores.setOnClickListener(this);
         vehiculos.setOnClickListener(this);
         articulos.setOnClickListener(this);
@@ -84,6 +89,8 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
         foto.setOnClickListener(this);
         video.setOnClickListener(this);
         horainf.setOnClickListener(this);
+        horadet.setOnClickListener(this);
+        horaactual1();
     }
 
     @Override
@@ -137,12 +144,13 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
 
     //guardar
     public void GuardarInf(){
+        guardarestado();
         intent = new Intent(Infraccion.this, FunctionActivity.class);
         startActivity(intent);
     }
 
-    //llamar a audio
-    public void MetodoHora(){
+    //Establece la hora
+    public void MetodoHoraInf(){
         final Calendar c = Calendar.getInstance();
         horas = c.get(Calendar.HOUR_OF_DAY);
         minutos = c.get(Calendar.MINUTE);
@@ -152,10 +160,33 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
                 // i = hora, i1 = minutos
                 Formatter obj = new Formatter();
                 String ceros = String.valueOf(obj.format("%02d", i1));
-                hora.setText(i+":"+ceros);
+                infhora.setText(i+":"+ceros);
             }
         },horas, minutos, false);
         timePickerDialog.show();
+    }
+
+    //Establece la hora
+    public void MetodoHoraDet(){
+        final Calendar c = Calendar.getInstance();
+        horas = c.get(Calendar.HOUR_OF_DAY);
+        minutos = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                // i = hora, i1 = minutos
+                Formatter obj = new Formatter();
+                String ceros = String.valueOf(obj.format("%02d", i1));
+                dethora.setText(i+":"+ceros);
+            }
+        },horas, minutos, false);
+        timePickerDialog.show();
+    }
+
+    public void horaactual1(){
+        String mydate = java.text.DateFormat.getTimeInstance().format(Calendar.getInstance().getTime());
+        infhora.setText(mydate);
+        dethora.setText(mydate);
     }
 
     //Escucha botones
@@ -172,8 +203,8 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
         }
         if (view == guardar){
             GuardarInf();
-            guardarNumInfraccion ();
-            guardarDB ();
+//            guardarNumInfraccion ();
+//            guardarDB ();
         }
         if (view == audio){
             MetodoGrabarAudio();
@@ -185,7 +216,10 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
             MetodoGrabarVideo();
         }
         if (view == horainf){
-            MetodoHora();
+            MetodoHoraInf();
+        }
+        if (view == horadet){
+            MetodoHoraDet();
         }
     }
 
@@ -205,7 +239,17 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
         SharedPreferences preferencias=getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=preferencias.edit();
         editor.putString ("infraccion", String.valueOf (num));
-        editor.putString ("hora", hora.getText ().toString ());
+        editor.putString ("horainfraccion", infhora.getText ().toString ());
+        editor.putString ("horadetencion", dethora.getText ().toString ());
+        editor.apply();
+    }
+
+    //Guardar estado
+    public void guardarestado(){
+        SharedPreferences preferencias=getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferencias.edit();
+        editor.putString ("horainfraccion", infhora.getText ().toString ());
+        editor.putString ("horadetencion", dethora.getText ().toString ());
         editor.apply();
     }
 
@@ -226,31 +270,31 @@ public class Infraccion extends AppCompatActivity implements View.OnClickListene
         numeral.setText(prefe.getString("numeral", ""));
     }
 
-    private void guardarDB() {
-        int numrero_infraccion = Integer.parseInt (String.valueOf (Constantes.agente.getCodigo_agente ()).concat (String.valueOf (obtenerNumInfraccion ())));
-        String descripcion = " ";
-        String ubicacion = Constantes.ubicacion;
-        int intento = 1;
-        double latitud = Constantes.lat;
-        double longitud = Constantes.lng;
-        String estado = "En resolucion";
-        String fecha_infraccion = Utilidades.obtenerFechaActual();
-        String hora_infraccion = hora.getText ().toString ();
-        guardarDetencion (numrero_infraccion);
-        String hora_registro = Utilidades.obtenerHoraActual ();
-        Agente_Transito agente_transito = Constantes.agente;
-        Modelos.Conductor conductor = Constantes.conductor;
-        Modelos.Vehiculo vehiculo = Constantes.vehiculo;
-        Articulos_Coip articulos = Constantes.articulo;
-        Infraccion_Transito infraccion = new Infraccion_Transito (numrero_infraccion, descripcion,
-                ubicacion, intento, latitud, longitud, estado, fecha_infraccion, hora_infraccion, hora_registro);
-        AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
-        infraccion.setAgente_transito (agente_transito.getCodigo_agente ());
-        infraccion.setConductor (conductor.getCedula ());
-        infraccion.setVehiculo (vehiculo.getPlaca ());
-        infraccion.setArticulos (articulos.getArticulo ());
-        helper.crearInfraccionTransito (infraccion);
-    }
+//    private void guardarDB() {
+//        int numrero_infraccion = Integer.parseInt (String.valueOf (Constantes.agente.getCodigo_agente ()).concat (String.valueOf (obtenerNumInfraccion ())));
+//        String descripcion = " ";
+//        String ubicacion = Constantes.ubicacion;
+//        int intento = 1;
+//        double latitud = Constantes.lat;
+//        double longitud = Constantes.lng;
+//        String estado = "En resolucion";
+//        String fecha_infraccion = Utilidades.obtenerFechaActual();
+//        String hora_infraccion = hora.getText ().toString ();
+//        guardarDetencion (numrero_infraccion);
+//        String hora_registro = Utilidades.obtenerHoraActual ();
+//        Agente_Transito agente_transito = Constantes.agente;
+//        Modelos.Conductor conductor = Constantes.conductor;
+//        Modelos.Vehiculo vehiculo = Constantes.vehiculo;
+//        Articulos_Coip articulos = Constantes.articulo;
+//        Infraccion_Transito infraccion = new Infraccion_Transito (numrero_infraccion, descripcion,
+//                ubicacion, intento, latitud, longitud, estado, fecha_infraccion, hora_infraccion, hora_registro);
+//        AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
+//        infraccion.setAgente_transito (agente_transito.getCodigo_agente ());
+//        infraccion.setConductor (conductor.getCedula ());
+//        infraccion.setVehiculo (vehiculo.getPlaca ());
+//        infraccion.setArticulos (articulos.getArticulo ());
+//        helper.crearInfraccionTransito (infraccion);
+//    }
 
     //controla boton atras
     @Override

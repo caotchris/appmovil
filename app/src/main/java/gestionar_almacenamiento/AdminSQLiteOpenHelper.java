@@ -33,7 +33,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
                 "horaRegistro datetime, codigoAgente text)");
         BaseDeDatos.execSQL("create table agenteTransito(codigo text, cedula text, nombres text, apellidos text, clave text)");
         BaseDeDatos.execSQL("create table conductor(cedula text, nombres text, apellidos text, tipoLicencia text, " +
-                "categoriaLicencia text, fechaEmisionLicencia datetime, fechaCaducidadLicencia datetime)");
+                "categoriaLicencia text, fechaEmisionLicencia datetime, fechaCaducidadLicencia datetime, Puntos)");
         BaseDeDatos.execSQL("create table vehiculo(placa text, marca text, tipo text, color text, " +
                 "fechaMatricula text, fechaCaducidadMatricula text)");
         BaseDeDatos.execSQL("create table articulosCoip(idArticulo text, articulo text, inciso text, numeral text)");

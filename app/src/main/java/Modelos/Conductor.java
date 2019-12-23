@@ -9,9 +9,10 @@ public class Conductor {
     private String categoria_licencia;
     private String fecha_emision_licencia;
     private String fecha_caducidad_licencia;
+    private String puntos;
 
     public Conductor(String cedula, String nombres, String apellidos, String tipo_licencia,
-                     String categoria_licencia, String fecha_emision_licencia, String fecha_caducidad_licencia) {
+                     String categoria_licencia, String fecha_emision_licencia, String fecha_caducidad_licencia, String puntos) {
         this.cedula = cedula;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -19,6 +20,7 @@ public class Conductor {
         this.categoria_licencia = categoria_licencia;
         this.fecha_emision_licencia = fecha_emision_licencia;
         this.fecha_caducidad_licencia = fecha_caducidad_licencia;
+        this.puntos = puntos;
     }
 
     public Conductor() {
@@ -57,6 +59,7 @@ public class Conductor {
         this.tipo_licencia = tipo_licencia;
     }
 
+
     public String getCategoria_licencia() {
         return categoria_licencia;
     }
@@ -81,6 +84,14 @@ public class Conductor {
         this.fecha_caducidad_licencia = fecha_caducidad_licencia;
     }
 
+    public String getPuntos() {
+        return puntos;
+    }
+
+    public void setPuntos(String puntos) {
+        this.puntos = puntos;
+    }
+
     @Override
     public String toString() {
         return "Conductor{" +
@@ -91,6 +102,7 @@ public class Conductor {
                 ", categoria_licencia='" + categoria_licencia + '\'' +
                 ", fecha_emision_licencia=" + fecha_emision_licencia +
                 ", fecha_caducidad_licencia=" + fecha_caducidad_licencia +
+                ", puntos=" + puntos +
                 '}';
     }
 

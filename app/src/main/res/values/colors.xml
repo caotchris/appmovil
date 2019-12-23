@@ -16,4 +16,6 @@
     <color name="gray1">#dedede</color>
     <color name="black">#000000</color>
     <color name="black1">#66000000</color>
+
+    <color name="recorder_bg">#F4511E</color>
 </resources>

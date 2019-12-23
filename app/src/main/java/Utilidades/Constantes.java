@@ -10,7 +10,7 @@ import gestionar_almacenamiento.AdminSQLiteOpenHelper;
 public class Constantes {
 
     //SERVER
-    private static final String IP_SERVER = "http://167.172.236.230/";
+    private static final String IP_SERVER = "http://18.228.40.250/";
     public static final String URL_CREAR_INFRACCION = IP_SERVER + "servicio_web/crearinfraccion/";
     public static final String URL_CREAR_ACCIDENTE = IP_SERVER + "servicio_web/crearAccidente/";
     public static final String URL_CREAR_EVIDENCIA = IP_SERVER + "Gestionar_Evidencia/api";
