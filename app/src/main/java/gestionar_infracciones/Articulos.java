@@ -46,20 +46,12 @@ public class Articulos extends AppCompatActivity {
 
     private boolean validar() {
         boolean band = true;
-        if (descripcion.getText ().toString ().isEmpty ()) {
-            descripcion.setError ("Campo requerido");
-            band = false;
-        }
         if (articulo1.getText ().toString ().isEmpty ()){
             articulo1.setError ("Campo requrrido");
             band = false;
         }
         if (inciso1.getText ().toString ().isEmpty ()){
             inciso1.setError ("Campo requrrido");
-            band = false;
-        }
-        if (numeral1.getText ().toString ().isEmpty ()){
-            numeral1.setError ("Campo requrrido");
             band = false;
         }
         return band;
@@ -963,7 +955,6 @@ public class Articulos extends AppCompatActivity {
         return true;
     }
 
-    //Guarda estado
     //presentar estado activity
     public void mostrarestado (){
         SharedPreferences prefe = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -982,20 +973,19 @@ public class Articulos extends AppCompatActivity {
         editor.putString("inciso", inciso1.getText().toString());
         editor.putString("numeral", numeral1.getText().toString());
         editor.apply();
-        guardaDB ();
         finish();
     }
 
-    public void guardaDB() {
-        AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
-        String descipcion = descripcion.getText().toString();
-        String articulo = articulo1.getText().toString();
-        String inciso = inciso1.getText().toString();
-        String numeral = numeral1.getText().toString();
-        Articulos_Coip art = new Articulos_Coip(articulo, numeral, inciso, descipcion);
-        Constantes.articulo = art;
-        helper.crearAritculo (art);
-    }
+//    public void guardaDB() {
+//        AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
+//        String descipcion = descripcion.getText().toString();
+//        String articulo = articulo1.getText().toString();
+//        String inciso = inciso1.getText().toString();
+//        String numeral = numeral1.getText().toString();
+//        Articulos_Coip art = new Articulos_Coip(articulo, numeral, inciso, descipcion);
+//        Constantes.articulo = art;
+//        helper.crearAritculo (art);
+//    }
 
     //controla boton atras
     @Override

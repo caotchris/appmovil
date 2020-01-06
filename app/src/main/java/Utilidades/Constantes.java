@@ -13,10 +13,10 @@ public class Constantes {
     private static final String IP_SERVER = "http://18.228.40.250/";
     public static final String URL_CREAR_INFRACCION = IP_SERVER + "servicio_web/crearinfraccion/";
     public static final String URL_CREAR_ACCIDENTE = IP_SERVER + "servicio_web/crearAccidente/";
-    public static final String URL_CREAR_EVIDENCIA = IP_SERVER + "Gestionar_Evidencia/api";
+    public static final String URL_CREAR_EVIDENCIA = IP_SERVER + "Gestionar_Evidencia/";
     public static final String URL_GET_CONDUCTOR = IP_SERVER + "servicio_web/detalleConductor/";
     public static final String URL_GET_VEHICULO = IP_SERVER + "servicio_web/detalleVehiculo/";
-    public static final String URL_GET_AGENTE = IP_SERVER + "servicio_web/loginAgente";
+    public static final String URL_GET_AGENTE = IP_SERVER + "servicio_web/detalleAgente/";
     public static final String URL_GET_NUM_INFRA = IP_SERVER + "servicio_web/detalleNumeroInfraccion/";
     public static final String DB = "administracion";
 
@@ -33,6 +33,8 @@ public class Constantes {
     public static Agente_Transito agente;
     public static int intento;
     public static Accidente_Transito accidente;
+    public static int numaccidente=40;
+    public static int numinfraccion=99;
 
     public static final String MSG_ERROR = "Campo obligatorio";
     public static AdminSQLiteOpenHelper helper;

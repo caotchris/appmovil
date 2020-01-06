@@ -26,18 +26,21 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase BaseDeDatos) {
         BaseDeDatos.execSQL("create table infraccionTransito(numeroInfraccion int, descripcion text, ubicacion text," +
                 "latitud text, longitud text, estado text," +
-                "fechaRegistro text, horaRegistro text, horaInfraccion text, codigoAgente text," +
-                "cedulaConductor text, numeroPlaca text, idArticulo text, numeroIntento text)");
+                "fechaInfraccion text, fechaRegistro text, horaRegistro text, horaInfraccion text, codigoAgente int," +        //Hora detencion es igual a la hora de registro
+                "cedulaConductor int, numeroPlaca text, idArticulo int)");
         BaseDeDatos.execSQL("create table accidenteTransito(numeroAccidente int, tipoAccidente text," +
-                " descripcion text, ubicacion text, fechaRegistro datetime, horaAccidente datetime," +
-                "horaRegistro datetime, codigoAgente text)");
-        BaseDeDatos.execSQL("create table agenteTransito(codigo text, cedula text, nombres text, apellidos text, clave text)");
+                " descripcion text, ubicacion text, latitud text, longitud text, fechaRegistro datetime, horaAccidente datetime," +
+                "horaRegistro datetime, codigoAgente text, estado text)");
+        BaseDeDatos.execSQL("create table agenteTransito(codigo int, cedula int, nombres text, apellidos text, clave text)");
         BaseDeDatos.execSQL("create table conductor(cedula text, nombres text, apellidos text, tipoLicencia text, " +
                 "categoriaLicencia text, fechaEmisionLicencia datetime, fechaCaducidadLicencia datetime, Puntos)");
         BaseDeDatos.execSQL("create table vehiculo(placa text, marca text, tipo text, color text, " +
                 "fechaMatricula text, fechaCaducidadMatricula text)");
         BaseDeDatos.execSQL("create table articulosCoip(idArticulo text, articulo text, inciso text, numeral text)");
-        BaseDeDatos.execSQL("create table evidencia(idEvidencia int, audio text, foto text, video text, codigoInfraccion text)");
+        BaseDeDatos.execSQL("create table evidencia(idEvidencia int, audio text, foto text, video blob, codigoInfraccion int)");
+        BaseDeDatos.execSQL("create table contadorInfracciones(cedula int, contador)"); //Contador infracciones
+        BaseDeDatos.execSQL("create table contadorAccidentes(cedula int, contador)");//contador accidentes
+        BaseDeDatos.execSQL("create table numeroIntentos(cedulaAgente int, fechIntento text, horaIntento Intento, latitud text, longitud text, codigoAgentes text)");//
     }
 
     @Override
@@ -56,19 +59,19 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = Constantes.helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("numeroInfraccion", infraccion.getNumrero_infraccion());
-        values.put("descripcion", Constantes.articulo.getDescripcion());
+        values.put("descripcion", infraccion.getDescripcion());
         values.put("ubicacion", infraccion.getUbicacion());
         values.put("latitud", infraccion.getLatitud());
         values.put("longitud", infraccion.getLongitud());
         values.put("estado", infraccion.getEstado());
+        values.put("fechaInfraccion", Utilidades.obtenerFechaActual());
         values.put("fechaRegistro", Utilidades.obtenerFechaActual());
         values.put("horaRegistro", String.valueOf (infraccion.getHora_registro()));
         values.put("horaInfraccion", String.valueOf (infraccion.getHora_infraccion()));
         values.put("codigoAgente", infraccion.getAgente_transito());
         values.put("cedulaConductor", infraccion.getConductor());
         values.put("numeroPlaca", infraccion.getVehiculo());
-        values.put("numeroIntento", infraccion.getIntento());
-        Log.e ("ValuesInfracciones", values.toString());
+        values.put("idArticulo", infraccion.getArticulos());
         db.insert("infraccionTransito", null, values);
         db.close();
     }
@@ -80,10 +83,13 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         values.put ("tipoAccidente", accidente.getTipo ());
         values.put ("descripcion", accidente.getDescripcion ());
         values.put ("ubicacion", accidente.getUbicacion ());
+        values.put("latitud", String.valueOf(accidente.getLatitud()));
+        values.put("longitud", String.valueOf(accidente.getLongitud()));
         values.put ("fechaRegistro", String.valueOf(accidente.getFecha_registro ()));
         values.put ("horaAccidente", String.valueOf(accidente.getHora_accidente ()));
         values.put ("horaRegistro", String.valueOf(accidente.getHora_accidente ()));
         values.put ("codigoAgente", accidente.getAgente_transito ());
+        values.put ("estado", accidente.getEstado());
         db.insert ("accidenteTransito", null, values);
         db.close ();
     }

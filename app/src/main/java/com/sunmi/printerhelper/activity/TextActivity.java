@@ -237,7 +237,7 @@ public class TextActivity extends BaseActivity {
         mEditText.setText("UNIDAD DE CONTROL OPERATIVO DE TRANSPORTE TERRESTRE, TRÁNSITO Y SEGURIDAD VIAL - LOJA\n"+
                 "BOLETA DE CITACIÓN DE INFRACCIONES DE TRÁNSITO\n"+
                 "_______________________________"+"\n"+
-                "Número de citación: \n"+prefe.getString("infraccion", "")+"\n"+
+                "Número de citación: \n"+prefe.getString("ninfraccion", "")+"\n"+
                 "Fecha: " + Utilidades.obtenerFechaActual() +"\n"+
                 "Hora de detención: \n"+ prefe.getString("horainfraccion", "") +"\n"+
                 "Hora de detención: \n"+ prefe.getString("horadetencion", "") +"\n"+

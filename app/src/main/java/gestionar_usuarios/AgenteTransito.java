@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.example.ucot.R;
 
+import Modelos.Agente_Transito;
 import Utilidades.Constantes;
 import gestionar_almacenamiento.AdminSQLiteOpenHelper;
 
 public class AgenteTransito extends AppCompatActivity {
 
     TextView nombre, apellido, identificacion, codigo;
+    Agente_Transito agente = Constantes.agente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,10 @@ public class AgenteTransito extends AppCompatActivity {
         apellido = (TextView) findViewById(R.id.ApellidosP);
         identificacion = (TextView) findViewById(R.id.IdentificacionP);
         codigo = (TextView) findViewById(R.id.CodigoP);
-//        Consultar();
+        nombre.setText(agente.getNombre());
+        apellido.setText(agente.getApellidos());
+        identificacion.setText(agente.getCedula());
+        codigo.setText(String.valueOf(agente.getCodigo_agente()));
     }
 
     //boton atras en actionbar
@@ -42,26 +47,5 @@ public class AgenteTransito extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
-//    //Metodo consultas
-//    public void Consultar(){
-//
-//        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, Constantes.DB, null, 1);
-//        SQLiteDatabase BaseDeDataBase = admin.getWritableDatabase();
-//        Cursor fila = BaseDeDataBase.rawQuery
-//                ("select Codigo, Cedula, Nombres, Apellidos from Agente_Transito where Codigo="+ 001, null);
-//        if (fila.moveToFirst()){
-//
-//            codigo.setText(fila.getString(0));
-//            identificacion.setText(fila.getString(1));
-//            nombre.setText(fila.getString(2));
-//            apellido.setText(fila.getString(3));
-//
-//            BaseDeDataBase.close();
-//        }else{
-//            Toast.makeText(this, "No hay información", Toast.LENGTH_SHORT).show();
-//            BaseDeDataBase.close();
-//        }
-//    }
 
 }

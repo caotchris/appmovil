@@ -14,9 +14,9 @@ public class Infraccion_Transito {
     private String hora_infraccion;
     private String hora_registro;
     private int agente_transito;
-    private String conductor;
+    private int conductor;
     private String vehiculo;
-    private String articulos;
+    private int articulos;
 
     public Infraccion_Transito(int numrero_infraccion, String descripcion, String ubicacion, int intento,
                                double latitud, double longitud, String estado, String fecha_infraccion,
@@ -29,8 +29,9 @@ public class Infraccion_Transito {
         this.longitud = longitud;
         this.estado = estado;
         this.fecha_infraccion = fecha_infraccion;
+        this.fecha_registro = fecha_registro;
         this.hora_infraccion = hora_infraccion;
-        this.hora_registro = hora_registro;
+        this.hora_registro = hora_registro;    // Es igual a la hora de detencion
     }
 
     public Infraccion_Transito() {
@@ -132,11 +133,11 @@ public class Infraccion_Transito {
         this.agente_transito = agente_transito;
     }
 
-    public String getConductor() {
+    public int getConductor() {
         return conductor;
     }
 
-    public void setConductor(String conductor) {
+    public void setConductor(int conductor) {
         this.conductor = conductor;
     }
 
@@ -148,11 +149,11 @@ public class Infraccion_Transito {
         this.vehiculo = vehiculo;
     }
 
-    public String getArticulos() {
+    public int getArticulos() {
         return articulos;
     }
 
-    public void setArticulos(String articulos) {
+    public void setArticulos(int articulos) {
         this.articulos = articulos;
     }
 
@@ -165,6 +166,7 @@ public class Infraccion_Transito {
                 ", latitud=" + latitud +
                 ", longitud=" + longitud +
                 ", fecha_infraccion='" + fecha_infraccion + '\'' +
+                ", fecha_registro='" + fecha_registro + '\'' +
                 ", hora_infraccion='" + hora_infraccion + '\'' +
                 ", hora_registro='" + hora_registro + '\'' +
                 ", estado=" + estado +

@@ -103,23 +103,23 @@ public class Vehiculo extends AppCompatActivity implements View.OnClickListener 
         editor.putString("memision", matriculaemision.getText().toString());
         editor.putString("mcaducidad", matriculacaducidad.getText().toString());
         editor.apply();
-        guardaDB ();
+//        guardaDB ();
         finish();
     }
 
-    public void guardaDB() {
-        AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
-        String placaV = placa.getText().toString();
-        String marcaV = marca.getText().toString();
-        String tipoV = tipo.getText().toString();
-        String colorV = color.getText().toString();
-        String emision = matriculaemision.getText().toString();
-        String caducidad = matriculacaducidad.getText().toString();
-
-        Modelos.Vehiculo  vehiculo = new Modelos.Vehiculo (placaV, tipoV, marcaV, colorV, emision, caducidad);
-        Constantes.vehiculo = vehiculo;
-        helper.crearVehiculo (vehiculo);
-    }
+//    public void guardaDB() {
+//        AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
+//        String placaV = placa.getText().toString();
+//        String marcaV = marca.getText().toString();
+//        String tipoV = tipo.getText().toString();
+//        String colorV = color.getText().toString();
+//        String emision = matriculaemision.getText().toString();
+//        String caducidad = matriculacaducidad.getText().toString();
+//
+//        Modelos.Vehiculo  vehiculo = new Modelos.Vehiculo (placaV, tipoV, marcaV, colorV, emision, caducidad);
+//        Constantes.vehiculo = vehiculo;
+//        helper.crearVehiculo (vehiculo);
+//    }
 
     //Mostrar menu action bar
     @Override
@@ -228,7 +228,7 @@ public class Vehiculo extends AppCompatActivity implements View.OnClickListener 
                     color.setText(Constantes.vehiculo.getColor ());
                     matriculaemision.setText(Constantes.vehiculo.getFecha_matricula ());
                     matriculacaducidad.setText(Constantes.vehiculo.getFecha_caducidad_matricula ());
-                    guardaDB ();
+//                    guardaDB ();
                     guardaestado ();
                     msg[0] = "Vehiculo encontrado";
                 } else {

@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -120,12 +121,12 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
         editor.putInt("spinner", spinnerc.getSelectedItemPosition());
         editor.putString("TLicencia", spinnerc.getSelectedItem().toString());
         //spinner texto
-        selectedString = opcionesTipo[spinnerc.getSelectedItemPosition()];  //Guarda texto del spinner
+        selectedString = opcionesTipo[spinnerc.getSelectedItemPosition()];  //Guarda posicion del spinner
         editor.putString("textospinner", selectedString);                  //Guarda texto del spinner
         editor.putString("lemision", licenciaemision.getText().toString());
         editor.putString("lcaducidad", licenciacaducidad.getText().toString());
         editor.apply();
-        guardaDB ();
+//        guardaDB ();
         finish();
     }
 
@@ -154,23 +155,6 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
         }
 
         return band;
-    }
-
-    public void guardaDB() {
-        String nombre = nombres.getText().toString();
-        String apellido = apellidos.getText().toString();
-        String id = identificacion.getText().toString();
-        String lcategoria = licenciacategoria.getText().toString();
-        String tipol  = opcionesTipo[spinnerc.getSelectedItemPosition()];  //Guarda texto del spinner
-        String lemision = licenciaemision.getText().toString();
-        String lcaducidad = licenciacaducidad.getText().toString();
-        String lpuntos = licenciacaducidad.getText().toString();
-
-        Modelos.Conductor conductor = new Modelos.Conductor (id, nombre, apellido, tipol, lcategoria, lemision, lcaducidad, lpuntos);
-        Constantes.conductor = conductor;
-        AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
-        helper.crearConductor (conductor);
-        finish();
     }
 
     //controla boton atras
@@ -266,10 +250,12 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
             datePickerDialog.show();
         }
         if (view == conductor){
-            if (!identificacion.getText ().toString ().isEmpty ())
+            if (!identificacion.getText().toString ().isEmpty ())
                 obtenerConductor ();
             else
                 identificacion.setError ("Campo requerido");
+
+
         }
     }
 
@@ -288,14 +274,16 @@ public class Conductor extends AppCompatActivity implements View.OnClickListener
                         if (conductor != null) {
                             nombres.setText (conductor.getNombres());
                             apellidos.setText (conductor.getApellidos());
+                            //control spiner
                             control = conductor.getTipo_licencia();
                             controlspinner();
+                            spinnerc.setSelection(contador);
                             identificacion.setText (conductor.getCedula ());
                             licenciaemision.setText (conductor.getFecha_emision_licencia ());
                             licenciacaducidad.setText (conductor.getFecha_caducidad_licencia ());
                             licenciacategoria.setText (conductor.getCategoria_licencia ());
                             punto.setText(conductor.getPuntos());
-                            guardaDB ();
+//                            guardaDB ();
                             guardaestado ();
                             msg[0] = "Conductor encontrado";
                         } else {

@@ -83,6 +83,14 @@
             android:label="@string/title_activity_vehiculo"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name="gestionar_sincronizacion.Enviar_Archivos"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".main"
+            android:theme="@style/AppTheme">
+        </activity>
         <activity android:name="com.example.ucot.MainActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name="gestionar_almacenamiento.AdminSQLiteOpenHelper"

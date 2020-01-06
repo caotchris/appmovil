@@ -1,9 +1,4 @@
 package Utilidades;
-
-import android.app.TimePickerDialog;
-import android.widget.EditText;
-import android.widget.TimePicker;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,6 +75,7 @@ public class Utilidades {
         return fechaDate;
     }
 
+    //Cuando se sincronice informacion del agente
     public static Agente_Transito obtenerAgente(JSONObject obj) throws JSONException {
         String cedula = obj.getString ("Cedula");
         int codigo = obj.getInt ("Codigo_Agente");
@@ -93,11 +89,12 @@ public class Utilidades {
         String cedula = obj.getString ("Cedula");
         String nombres = obj.getString ("Nombres");
         String apellidos = obj.getString ("Apellidos");
+        String tipoLicencia = obj.getString ("TipoLicencia");
         String categoriaLicencia = obj.getString ("CategoriaLicencia");
         String fechaEmisionLicencia = obj.getString ("FechaEmisionLicencia");
         String fechaCaducidadLicencia = obj.getString ("FechaCaducidadLicencia");
         String puntos = obj.getString ("Puntos");
-        return new Conductor (cedula, nombres, apellidos, categoriaLicencia,
+        return new Conductor (cedula, nombres, apellidos, tipoLicencia,
                 categoriaLicencia, fechaEmisionLicencia, fechaCaducidadLicencia, puntos);
     }
 

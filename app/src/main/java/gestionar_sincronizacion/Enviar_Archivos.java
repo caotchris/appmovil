@@ -15,6 +15,8 @@ import com.koushikdutta.ion.Ion;
 import java.io.File;
 import java.util.Objects;
 
+import Utilidades.Constantes;
+
 public class Enviar_Archivos extends AppCompatActivity {
 
     private static final int READ_REQUEST_CODE = 42;
@@ -22,6 +24,8 @@ public class Enviar_Archivos extends AppCompatActivity {
     private String path;
 
     public Enviar_Archivos(String url, String path) {
+        url = Constantes.URL_CREAR_EVIDENCIA;
+        path = Constantes.video;
         this.url = url;
         this.path = path;
         performFileSearch ();

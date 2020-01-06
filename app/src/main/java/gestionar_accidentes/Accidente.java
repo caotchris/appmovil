@@ -74,7 +74,7 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
         foto.setOnClickListener(this);
         video.setOnClickListener(this);
         horaacidente.setOnClickListener(this);
-        horaatencion.setOnClickListener(this);
+        horaatencion.setOnClickListener(this); //Hora atencion es igual a hora de registro
         //Boton para guardar
         guardar = findViewById(R.id.GuardarAccidente);
         guardar.setOnClickListener(this);
@@ -184,8 +184,7 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if (view == guardar){
-            guardarAccidenteDB();
-            guardarNumAccidente ();
+            validar();
         }
         if (view == audio){
             MetodoGrabarAudio();
@@ -204,34 +203,50 @@ public class Accidente extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    //Validar los campos
+    private boolean validar() {
+        boolean band = true;
+        if (descripcion.getText ().toString ().isEmpty ()){
+            descripcion.setError ("Campo requerido");
+            Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_LONG).show();
+            band = false;
+        }
+        else{
+            guardarAccidenteDB();
+            guardarNumAccidente ();
+        }
+        return band;
+    }
+
     private void guardarAccidenteDB() {
-        int numero = Integer.parseInt ( String.valueOf (obtenerNumAccidente ()).concat (String.valueOf (Constantes.agente.getCodigo_agente ())));
+        int numero = Constantes.numaccidente;
         String tipo = tipoaccidente.getSelectedItem ().toString ();
         String descripcion = this.descripcion.getText ().toString ();
         String ubicacion = Constantes.ubicacion;
-        int intento = Constantes.intento;
+        int intento = 55;
         double latitud = Constantes.lat;
         double longitud = Constantes.lng;
         String estado = "Reportado";
         String fecha_accidente = Utilidades.obtenerFechaActual ();
-        String fecha_registro = Utilidades.obtenerFechaActual ();
+        String fecha_registro = Utilidades.obtenerFechaActual ();   //Fecha de atencion
         String hora_accident = this.horaacc.getText ().toString ();
-        guardarDetencion (numero);
-        String hora_registro = Utilidades.obtenerHoraActual ();
+        //guardarDetencion (numero);
+        String hora_registro = Utilidades.obtenerHoraActual ();   // Hora de atencion
         Agente_Transito agente_transito = Constantes.agente;
-        Conductor conductor = Constantes.conductor;
-        Vehiculo vehiculo = Constantes.vehiculo;
-        Articulos_Coip articulos = Constantes.articulo;
+//        Conductor conductor = Constantes.conductor;
+//        Vehiculo vehiculo = Constantes.vehiculo;
+//        Articulos_Coip articulos = Constantes.articulo;
         Accidente_Transito accidente = new Accidente_Transito (numero, tipo, descripcion, ubicacion,
                 intento, latitud, longitud, estado, fecha_accidente, fecha_registro, hora_accident, hora_registro);
         accidente.setAgente_transito (agente_transito.getCodigo_agente ());
-        accidente.setArticulos (articulos);
-        accidente.setConductor (conductor);
-        accidente.setVehiculo (vehiculo);
-        Constantes.accidente = accidente;
+//        accidente.setArticulos (articulos);
+//        accidente.setConductor (conductor);
+//        accidente.setVehiculo (vehiculo);
+//        Constantes.accidente = accidente;
         AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper (this, Constantes.DB, null, 1);
         helper.crearAccidenteTransito(accidente);
         Toast.makeText(this, "Guardado con éxito", Toast.LENGTH_LONG).show();
+        Constantes.numaccidente= numero+1;
         onBackPressed();
     }
 }

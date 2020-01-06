@@ -2,16 +2,13 @@ package Modelos;
 
 public class Evidencia {
 
-    private String id_evidencia;
+    private int id_evidencia;
     private String audio;
     private String foto;
     private String video;
-    private String codigoInfraccion;
+    private int codigoInfraccion;
 
-    public Evidencia() {
-    }
-
-    public Evidencia(String id_evidencia, String audio, String foto, String video, String codigoInfraccion) {
+    public Evidencia (int id_evidencia, String audio, String foto, String video, int codigoInfraccion) {
         this.id_evidencia = id_evidencia;
         this.audio = audio;
         this.foto = foto;
@@ -19,11 +16,15 @@ public class Evidencia {
         this.codigoInfraccion = codigoInfraccion;
     }
 
-    public String getId_evidencia() {
+    public Evidencia() {
+
+    }
+
+    public int getId_evidencia() {
         return id_evidencia;
     }
 
-    public void setId_evidencia(String id_evidencia) {
+    public void setId_evidencia(int id_evidencia) {
         this.id_evidencia = id_evidencia;
     }
 
@@ -51,11 +52,11 @@ public class Evidencia {
         this.video = video;
     }
 
-    public String getCodigoInfraccion() {
+    public int getCodigoInfraccion() {
         return codigoInfraccion;
     }
 
-    public void setCodigoInfraccion(String codigoInfraccion) {
+    public void setCodigoInfraccion(int codigoInfraccion) {
         this.codigoInfraccion = codigoInfraccion;
     }
 

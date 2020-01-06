@@ -68,6 +68,7 @@ import java.util.List;
 import java.util.Locale;
 
 import Modelos.Accidente_Transito;
+import Modelos.Evidencia;
 import Modelos.Infraccion_Transito;
 import Modelos.Vehiculo;
 import Utilidades.Constantes;
@@ -75,6 +76,7 @@ import gestionar_accidentes.Accidente;
 import gestionar_almacenamiento.AdminSQLiteOpenHelper;
 import gestionar_informacion.ConsultaDatos;
 import gestionar_infracciones.Infraccion;
+import gestionar_sincronizacion.Enviar_Archivos;
 import gestionar_sincronizacion.Enviar_Info;
 import gestionar_usuarios.AgenteTransito;
 import timber.log.Timber;
@@ -247,11 +249,10 @@ public class MainActivity extends AppCompatActivity implements
             Perfil();
         }
         if (id==R.id.RegistroIncidencias){
-            //Descargar e infresar a las regiones
-
+            intent = new Intent (MainActivity.this, main.class);
+            startActivity(intent);
         }
         if (id==R.id.Sincronizacion){
-            //Descargar e infresar a las regiones
             dialog.show ();
             sincronizar();
         }
@@ -276,21 +277,34 @@ public class MainActivity extends AppCompatActivity implements
     private boolean gestionSincronizacion() {
         boolean band = true;
         do {
+            //Infraccion transito
             ArrayList<Infraccion_Transito> infracciones = Enviar_Info.obtenerInfracciones (Constantes.helper);
             if (infracciones != null) {
                 Log.e("infracciones", infracciones.toString ());
                 for (Infraccion_Transito infraccion:infracciones) {
                     band = Enviar_Info.crearInfraccion (request, infraccion);
-                    if (!band) return band;
+//                    if (!band) return band;
                 }
             }
+            //Accidente tránsito
             ArrayList<Accidente_Transito> accidentes = Enviar_Info.obtenerAccidentes (Constantes.helper);
             if (accidentes != null) {
                 for (Accidente_Transito accidente:accidentes) {
                     band = Enviar_Info.crearAccidente (request, accidente);
-                    if (!band) return band;
+
+                    //if (!band) return band;
                 }
             }
+            //Evidencias
+//            ArrayList<Evidencia> evidencias = Enviar_Info.obtenerEvidencias (Constantes.helper);
+//            if (evidencias != null) {
+//                for (Evidencia evidencia:evidencias) {
+//                    band = Enviar_Info.crearEvidencia (request, evidencia);
+//                    Enviar_Archivos archi = new Enviar_Archivos(Constantes.URL_CREAR_EVIDENCIA, evidencia.getVideo());
+//                    intent = new Intent (MainActivity.this, Enviar_Archivos.class);
+//                    startActivity(intent);
+//                }
+//            }
         }while (band);
         return band;
     }
